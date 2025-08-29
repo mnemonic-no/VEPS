@@ -10,4 +10,5 @@ dependencies = [
     "scikit-learn>=1.7.1",
     "torch>=2.8.0",
     "transformers>=4.55.4",
+    "xgboost>=3.0.4",
 ]

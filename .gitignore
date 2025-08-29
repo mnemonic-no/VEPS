@@ -16,4 +16,4 @@ venv
 .lesshst
 .vim/
 .viminfo
-data/
+/data/
