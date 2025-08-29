@@ -9,8 +9,8 @@ def predict_vulnerabilities(
     input_data: Union[str, Path, pd.DataFrame], 
     model_dir: Path = None,
     output_file: Path = None,
-    use_predicted_cwe: bool = None,
-    use_predicted_cvss: bool = None
+    use_predicted_cwe: bool = False,
+    use_predicted_cvss: bool = False
 ) -> pd.DataFrame:
     """
     Make vulnerability predictions.
@@ -31,17 +31,13 @@ def predict_vulnerabilities(
     else:
         data = input_data.copy()
     
-    # Get config settings if not explicitly provided
-    if use_predicted_cwe is None or use_predicted_cvss is None:
-        try:
-            config = fetch_config_from_yaml()
-            if use_predicted_cwe is None:
-                use_predicted_cwe = config.get('use_predictions', {}).get('cwe', False)
-            if use_predicted_cvss is None:
-                use_predicted_cvss = config.get('use_predictions', {}).get('cvss', False)
-        except:
-            use_predicted_cwe = use_predicted_cwe or False
-            use_predicted_cvss = use_predicted_cvss or False
+
+    config = fetch_config_from_yaml()
+    if use_predicted_cwe is None:
+        use_predicted_cwe = config.get('use_predictions', {}).get('cwe', False)
+    if use_predicted_cvss is None:
+        use_predicted_cvss = config.get('use_predictions', {}).get('cvss', False)
+
     
     # Fill with predictions if requested
     if use_predicted_cwe or use_predicted_cvss:

@@ -51,9 +51,18 @@ CVE mentions (`data/cve_mentions.json`) (optional)
 }
 ```
 
-Output Format
+## Output Format
 Daily predictions saved as `predictions_YYYYMMDD.csv`
 ```
 cve_id,base_score,attack_vector,...,exploitation_probability,percentile
 CVE-2024-12345,9.8,NETWORK,...,0.94,99.2
 ```
+
+
+
+# Cyberrisk
+VEPS was developed in the Cyberrisk project.
+
+The research project “Cyberrisk” is a joint partnership between mnemonic, [Norsk Regnesentral](https://nr.no/), [Avinor](https://avinor.no/) and [DNB](https://www.dnb.no/).
+
+[The Research Council of Norway](https://www.forskningsradet.no/en/) has granted the research project as part of their [Innovation Project for the Industrial Sector](https://www.forskningsradet.no/en/call-for-proposals/2021/innovation-project-for-the-industrial-sector/), a funding instrument that provides grants to business-led innovation projects that make extensive use of research and development (R&D). The Innovation Project is to lead to renewal and sustainable value creation for the project’s business partners, and funding should also generate socioeconomic benefits by making new knowledge and solutions available.
