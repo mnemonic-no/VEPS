@@ -1,0 +1,63 @@
+training_data_file: train.csv
+target: target
+pipeline_name: vuln_pred
+pipeline_save_file: vuln_pred.pkl
+cutoff_date: 2024-9-28
+
+use_predictions:
+  cwe: true 
+  cvss: true  
+
+feature_columns:
+  cwe_features:
+    - predicted_cwe_list  
+    - cwe_list
+  passthrough:
+    - days_since_published
+    - total_mentions
+    - days_since_last_mention
+    - mentions_in_window
+    - mention_frequency
+    - ref_exploit
+    - ref_patch
+    - ref_vendor_advisory
+    - ref_us_government_resource
+    - ref_third_party_advisory
+    - ref_vdb_entry
+    - ref_product
+    - ref_mailing_list
+    - ref_not_applicable
+    - ref_release_notes
+    - ref_issue_tracking
+    - ref_technical_description
+    - ref_mitigation
+    - ref_permissions_required
+    - ref_press_media_coverage
+  categorical_features: 
+    - attack_vector
+    - attack_complexity
+    - privileges_required
+    - user_interaction
+    - scope
+    - confidentiality_impact
+    - integrity_impact
+    - availability_impact
+    - predicted_attack_vector
+    - predicted_attack_complexity
+    - predicted_privileges_required
+    - predicted_user_interaction
+    - predicted_scope
+    - predicted_confidentiality_impact
+    - predicted_integrity_impact
+    - predicted_availability_impact
+
+hyperparameters:
+  learning_rate: 0.022717116873379944
+  n_estimators: 898
+  max_depth: 13
+  min_child_weight: 1
+  subsample: 0.9686213428249685
+  colsample_bytree: 0.7935109220842328
+  gamma: 2.2913743450933598e-07
+  reg_alpha: 1.5740608970103103e-06
+  reg_lambda: 0.00034300094881644717
