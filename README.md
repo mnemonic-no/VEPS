@@ -8,7 +8,7 @@ A machine learning pipeline for predicting the likelihood of CVE exploitation us
 VEPS processes National Vulnerability Database (NVD) data to predict which CVEs are most likely to be exploited in the wild. The system combines:
 
 - **Data Processing**: Automated NVD data download and feature extraction
-- **DistilBERT Models**: For predicting missing CVSS scores and CWE classifications
+- **DistilBERT Models**: For predicting missing CVSS vectors and CWE classifications
 - **XGBoost Model**: For vulnerability exploitation likelihood prediction
 - **Daily Pipeline**: Automated daily predictions on new CVE data
 

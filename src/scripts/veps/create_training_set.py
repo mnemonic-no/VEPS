@@ -1,8 +1,6 @@
 from pathlib import Path
 import argparse
 
-
-
 from veps.lib.data.preprocessing import create_training_set, create_inference_dataset
 from veps.config import DATA_DIR
 

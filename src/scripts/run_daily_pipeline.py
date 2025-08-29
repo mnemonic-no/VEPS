@@ -50,8 +50,6 @@ def run_daily_pipeline():
         MODELS_DIR / "vuln_pred",
         output_file
     )
-        
-
 
 if __name__ == "__main__":
     run_daily_pipeline()
