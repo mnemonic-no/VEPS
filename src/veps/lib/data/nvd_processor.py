@@ -47,13 +47,11 @@ class NVDProcessor:
         try:
             predictions = self.predictor.predict_for_cve(description)
             
-            # Add predicted CWEs
             if "cve" not in cve_item:
                 cve_item["cve"] = {}
             if "weaknesses" not in cve_item["cve"]:
                 cve_item["cve"]["weaknesses"] = []
 
-            # Add predicted weakness entry
             predicted_weakness = {
                 "source": "ml_prediction",
                 "type": "Predicted",
@@ -64,21 +62,21 @@ class NVDProcessor:
             }
             cve_item["cve"]["weaknesses"].append(predicted_weakness)
 
-            # Add predicted CVSS
             if "metrics" not in cve_item["cve"]:
                 cve_item["cve"]["metrics"] = {}
             if "cvssMetricV31" not in cve_item["cve"]["metrics"]:
                 cve_item["cve"]["metrics"]["cvssMetricV31"] = []
             
-            # Add predicted CVSS metric
-            predicted_cvss = {
-                "source": "ml_prediction",
-                "type": "Predicted",
-                "cvssData": predictions["cvss"].get("cvssV3", {}),
-                "exploitabilityScore": predictions["cvss"].get("exploitabilityScore"),
-                "impactScore": predictions["cvss"].get("impactScore")
-            }
-            cve_item["cve"]["metrics"]["cvssMetricV31"].append(predicted_cvss)
+            cvss_prediction = predictions["cvss"]
+            if "error" not in cvss_prediction:
+                predicted_cvss = {
+                    "source": "ml_prediction",
+                    "type": "Predicted",
+                    "cvssData": cvss_prediction["cvssData"],
+                    "exploitabilityScore": cvss_prediction["exploitabilityScore"],
+                    "impactScore": cvss_prediction["impactScore"]
+                }
+                cve_item["cve"]["metrics"]["cvssMetricV31"].append(predicted_cvss)
             
         except Exception as e:
             print(f"Error predicting for CVE {cve_item.get('cve', {}).get('id', 'Unknown')}: {e}")

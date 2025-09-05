@@ -133,6 +133,7 @@ def count_tags_in_references(cve_entry: Dict) -> Dict[str, int]:
     """Count occurrences of each tag in references."""
     references = cve_entry.get("cve", {}).get("references", [])
     tag_counts: Dict[str, int] = {}
+    print(references)
 
     for reference in references:
         for tag in reference.get("tags", []):

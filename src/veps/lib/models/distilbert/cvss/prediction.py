@@ -73,14 +73,40 @@ class CVSSClassifier:
             cvss_calc.compute_isc()
             cvss_calc.compute_esc()
             
-            return {
+            vector_parts = {}
+            parts = vector.replace("CVSS:3.1/", "").split("/")
+            for part in parts:
+                key, value = part.split(":")
+                vector_parts[key] = value
+            
+            component_mapping = {
+                "AV": ("attackVector", {"N": "NETWORK", "A": "ADJACENT_NETWORK", "L": "LOCAL", "P": "PHYSICAL"}),
+                "AC": ("attackComplexity", {"L": "LOW", "H": "HIGH"}),
+                "PR": ("privilegesRequired", {"N": "NONE", "L": "LOW", "H": "HIGH"}),
+                "UI": ("userInteraction", {"N": "NONE", "R": "REQUIRED"}),
+                "S": ("scope", {"U": "UNCHANGED", "C": "CHANGED"}),
+                "C": ("confidentialityImpact", {"N": "NONE", "L": "LOW", "H": "HIGH"}),
+                "I": ("integrityImpact", {"N": "NONE", "L": "LOW", "H": "HIGH"}),
+                "A": ("availabilityImpact", {"N": "NONE", "L": "LOW", "H": "HIGH"})
+            }
+            
+            cvss_data = {
                 "version": "3.1",
                 "vectorString": vector,
                 "baseScore": float(cvss_calc.base_score),
-                "baseSeverity": cvss_calc.severities()[0].upper(),
-                "exploitabilityScore": float(cvss_calc.esc),
-                "impactScore": float(cvss_calc.isc),
+                "baseSeverity": cvss_calc.severities()[0].upper()
             }
+            
+            for key, (full_name, value_map) in component_mapping.items():
+                if key in vector_parts:
+                    cvss_data[full_name] = value_map.get(vector_parts[key], vector_parts[key])
+            
+            return {
+                "cvssData": cvss_data,
+                "exploitabilityScore": float(cvss_calc.esc),
+                "impactScore": float(cvss_calc.isc)
+            }
+            
         except Exception as e:
             print(f"Error calculating CVSS metrics: {e}")
             return {"vectorString": vector, "error": str(e)}

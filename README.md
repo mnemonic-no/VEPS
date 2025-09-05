@@ -34,6 +34,7 @@ uv run src/scripts/veps/prediction.py
 
 
 ## Required input files
+
 CVE Observations(`data/cve_observations.csv`)
 ```
 cve,date,count
