@@ -10,7 +10,6 @@ use_predictions:
 
 feature_columns:
   cwe_features:
-    - predicted_cwe_list  
     - cwe_list
   passthrough:
     - days_since_published
@@ -47,14 +46,6 @@ feature_columns:
     - confidentiality_impact
     - integrity_impact
     - availability_impact
-    - predicted_attack_vector
-    - predicted_attack_complexity
-    - predicted_privileges_required
-    - predicted_user_interaction
-    - predicted_scope
-    - predicted_confidentiality_impact
-    - predicted_integrity_impact
-    - predicted_availability_impact
 
 xgboost:
   tree_method: hist
