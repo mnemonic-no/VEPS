@@ -5,7 +5,6 @@ build/
 dist/
 wheels/
 *.egg-info
-uv.lock
 # Virtual environments
 .venv
 venv
@@ -16,4 +15,27 @@ venv
 .lesshst
 .vim/
 .viminfo
-/data/
+/data/*
+!/data/raw/
+!/data/interim/
+!/data/processed/
+!/data/inference/
+!/data/models/
+!/data/predictions/
+/data/raw/*
+!/data/raw/.gitkeep
+!/data/raw/README.md
+!/data/raw/cve_observations.sample.csv
+!/data/raw/cve_mentions.sample.json
+/data/interim/*
+!/data/interim/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+/data/inference/*
+!/data/inference/.gitkeep
+/data/models/*
+!/data/models/.gitkeep
+/data/predictions/*
+!/data/predictions/.gitkeep
+# Optuna study persistence
+*.db
