@@ -15,6 +15,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 NVD_FILEPATH = (PROJECT_ROOT / "data" / "raw" / "nvd").resolve()
 OBSERVATIONS_PATH = DATA_DIR / "raw" / "cve_observations.csv"
 CVE_MENTIONS_PATH = DATA_DIR / "raw" / "cve_mentions.json"
+SIGHTING_FEATURES_PATH = DATA_DIR / "raw" / "cve_sighting_features.csv"
 PREPROCESS_FILEPATH = DATA_DIR / "interim"
 NVD_ENRICHED = DATA_DIR / "interim" / "nvd_with_predictions"
 CORPUS_FILEPATH = DATA_DIR / "interim" / "nvd_with_predictions"
