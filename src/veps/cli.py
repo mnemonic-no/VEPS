@@ -73,9 +73,15 @@ def _build_parser() -> argparse.ArgumentParser:
     p = subparsers.add_parser("train", description="Train vulnerability prediction model")
     p.add_argument("--device", choices=["cpu", "cuda"], default=None,
                    help="XGBoost compute device (overrides config)")
+    p.add_argument("--model-dir", type=Path, default=None,
+                   help="Directory to write the trained pipeline, trained "
+                        "categories, and (when --params is omitted) read "
+                        "best_params.json from "
+                        "(default: data/models/vuln_pred). Use distinct "
+                        "directories to train side-by-side models.")
     p.add_argument("--params", type=Path, default=None,
                    help="Path to tuned XGBoost params JSON "
-                        "(default: data/models/vuln_pred/best_params.json, "
+                        "(default: <model-dir>/best_params.json, "
                         "written by `veps tune`)")
     p.add_argument("--no-calibrate", action="store_true",
                    help="Skip post-fit isotonic/sigmoid calibration "
@@ -87,7 +93,14 @@ def _build_parser() -> argparse.ArgumentParser:
                         "metric blocks. Use only after a diagnostic run has "
                         "validated calibration. Ignores config.cutoff_date.")
 
-    subparsers.add_parser("predict", description="Make daily vulnerability predictions")
+    p = subparsers.add_parser("predict", description="Make daily vulnerability predictions")
+    p.add_argument("--model-dir", type=Path, default=None,
+                   help="Directory containing the trained pipeline + "
+                        "trained_categories.json "
+                        "(default: data/models/vuln_pred). When set to a "
+                        "non-default dir, the output filename is suffixed "
+                        "with the directory name so parallel runs do not "
+                        "clobber each other.")
 
     p = subparsers.add_parser("tune", description="Tune hyperparameters for vulnerability prediction")
     p.add_argument("--training-file", type=Path, help="Path to training data file")
@@ -95,6 +108,11 @@ def _build_parser() -> argparse.ArgumentParser:
     p.add_argument("--tune-only", action="store_true", help="Only tune, don't train final model")
     p.add_argument("--device", choices=["cpu", "cuda"], default=None,
                    help="XGBoost compute device (overrides config)")
+    p.add_argument("--model-dir", type=Path, default=None,
+                   help="Directory to write best_params.json (and, unless "
+                        "--tune-only, the trained pipeline + categories) "
+                        "(default: data/models/vuln_pred). Use distinct "
+                        "directories to tune side-by-side models.")
     p.add_argument("--study-name", type=str, default=None,
                    help="Optuna study name (resumes if it already exists in storage; "
                         "default: config.tune.study_name)")
@@ -179,6 +197,13 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Drop all cached BERT predictions before --predict-cvss (full re-enrichment)",
     )
+    p.add_argument("--model-dir", type=Path, default=None,
+                   help="Directory containing the trained pipeline + "
+                        "trained_categories.json "
+                        "(default: data/models/vuln_pred). When set to a "
+                        "non-default dir, the output filename is suffixed "
+                        "with the directory name so parallel runs do not "
+                        "clobber each other.")
 
     return parser
 

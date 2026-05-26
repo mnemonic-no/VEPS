@@ -36,6 +36,29 @@ feature_columns:
     - ref_mitigation
     - ref_permissions_required
     - ref_press_media_coverage
+    # Sighting features (from data/raw/cve_sighting_features.csv)
+    - n_poc_1d
+    - n_poc_7d
+    - n_poc_30d
+    - n_confirmed_1d
+    - n_confirmed_7d
+    - n_confirmed_30d
+    - n_exploited_nonss_1d
+    - n_exploited_nonss_7d
+    - n_exploited_nonss_30d
+    - telegram_poc_30d
+    - cum_poc
+    - cum_confirmed
+    - cum_exploited_nonss
+    - nuclei_template_present
+    - exploitdb_present
+    - kev_listed
+    - unique_poc_sources_30d
+    - days_since_first_poc
+    - days_since_first_confirmed
+    - days_since_first_exploited_nonss
+    - days_first_confirmed_minus_first_poc
+    - days_first_exploited_nonss_minus_first_poc
   categorical_features:
     - cna_id
     - attack_vector

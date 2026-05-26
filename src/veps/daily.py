@@ -53,10 +53,12 @@ def main(args):
 
     # Make predictions
     date_str = datetime.now().strftime("%Y%m%d")
-    output_file = DAILY_PREDICTIONS / f"predictions_{date_str}.csv"
+    model_dir = getattr(args, "model_dir", None) or MODELS_DIR / "vuln_pred"
+    suffix = f"_{model_dir.name}" if model_dir.name != "vuln_pred" else ""
+    output_file = DAILY_PREDICTIONS / f"predictions_{date_str}{suffix}.csv"
 
     _ = predict_vulnerabilities(
         inference_data,
-        MODELS_DIR / "vuln_pred",
+        model_dir,
         output_file
     )
