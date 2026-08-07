@@ -16,7 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 distilbert = [
-    "torch>=2.8.0",
+    "torch>=2.13.0",
     "transformers>=4.55.4",
     "cvss",
 ]
